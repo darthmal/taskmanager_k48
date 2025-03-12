@@ -1,6 +1,7 @@
 package com.starter.domain.project.taskmanager.service;
 
 import com.starter.domain.project.common.utils.EntityNotFoundException;
+import com.starter.domain.project.core.exception.UniqueConstraintViolationException;
 import com.starter.domain.project.taskmanager.dtos.TaskRequestDto;
 import com.starter.domain.project.taskmanager.mapper.TaskMapper;
 import com.starter.domain.project.taskmanager.modal.Task;
@@ -22,6 +23,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task createTask(TaskRequestDto request) {
+        checkUniqueTitle(request);
         Task task = taskMapper.toEntity(request);
         return repository.save(task);
     }
@@ -44,6 +46,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task update(Long id, TaskRequestDto request) {
+        checkUniqueTitle(request);
         Task target = getTaskById(id);
         Task source = taskMapper.toEntity(request);
         return repository.save(taskMapper.update(source, target));
@@ -53,5 +56,9 @@ public class TaskServiceImpl implements TaskService{
     public void delete(Long id) {
         Task task = getTaskById(id);
         repository.delete(task);
+    }
+
+    private void checkUniqueTitle(TaskRequestDto dto) {
+        if (repository.countAllByTitle(dto.getTitle()) > 0) throw new UniqueConstraintViolationException("Field must be unique", "Title");
     }
 }
