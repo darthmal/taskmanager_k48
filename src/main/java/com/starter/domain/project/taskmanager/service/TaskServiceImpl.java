@@ -2,6 +2,7 @@ package com.starter.domain.project.taskmanager.service;
 
 import com.starter.domain.project.common.utils.EntityNotFoundException;
 import com.starter.domain.project.taskmanager.dtos.TaskRequestDto;
+import com.starter.domain.project.taskmanager.mapper.TaskMapper;
 import com.starter.domain.project.taskmanager.modal.Task;
 import com.starter.domain.project.taskmanager.modal.TaskStatus;
 import com.starter.domain.project.taskmanager.repository.TaskRepository;
@@ -16,11 +17,13 @@ import java.util.List;
 @Slf4j
 public class TaskServiceImpl implements TaskService{
 
-    final TaskRepository repository;
+    private final TaskRepository repository;
+    private final TaskMapper taskMapper;
 
     @Override
     public Task createTask(TaskRequestDto request) {
-        return null;
+        Task task = taskMapper.toEntity(request);
+        return repository.save(task);
     }
 
     @Override
@@ -41,7 +44,9 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task update(Long id, TaskRequestDto request) {
-        return null;
+        Task target = getTaskById(id);
+        Task source = taskMapper.toEntity(request);
+        return repository.save(taskMapper.update(source, target));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.starter.domain.project.taskmanager.dtos;
 
 import com.starter.domain.project.common.MandatoryField;
+import com.starter.domain.project.taskmanager.modal.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ public class TaskRequestDto {
     private String description;
 
     @MandatoryField
-    private String status;
+    private TaskStatus status;
 }

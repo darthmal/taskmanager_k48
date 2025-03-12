@@ -15,6 +15,4 @@ public abstract class BaseEntity {
     private ZonedDateTime createdAt;
     @MandatoryField
     private ZonedDateTime updatedAt;
-    @MandatoryField
-    private String updatedBy;
 }

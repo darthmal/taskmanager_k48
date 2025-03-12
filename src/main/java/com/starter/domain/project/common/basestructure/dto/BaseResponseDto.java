@@ -22,12 +22,10 @@ public class BaseResponseDto {
             using = ZonedDateTimeDeserializer.class
     )
     private ZonedDateTime updatedAt;
-    private String updatedBy;
 
     protected BaseResponseDto(BaseResponseDtoBuilder<?, ?> b) {
         this.createdAt = b.createdAt;
         this.updatedAt = b.updatedAt;
-        this.updatedBy = b.updatedBy;
     }
 
     public static BaseResponseDtoBuilder<?, ?> builder() {
@@ -40,10 +38,6 @@ public class BaseResponseDto {
 
     public ZonedDateTime getUpdatedAt() {
         return this.updatedAt;
-    }
-
-    public String getUpdatedBy() {
-        return this.updatedBy;
     }
 
     @JsonDeserialize(
@@ -60,17 +54,12 @@ public class BaseResponseDto {
         this.updatedAt = updatedAt;
     }
 
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
     public BaseResponseDto() {
     }
 
     public BaseResponseDto(ZonedDateTime createdAt, ZonedDateTime updatedAt, String updatedBy) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.updatedBy = updatedBy;
     }
 
     public abstract static class BaseResponseDtoBuilder<C extends BaseResponseDto, B extends BaseResponseDtoBuilder<C, B>> {
