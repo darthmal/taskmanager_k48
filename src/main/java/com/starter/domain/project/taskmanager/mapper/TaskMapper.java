@@ -23,5 +23,7 @@ public abstract class TaskMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", expression = "java(com.starter.domain.project.common.utils.DateTimeUtils.now())")
+    @Mapping(target = "title", expression = ("java(source.getTitle() != null && !source.getTitle().isEmpty()  ? source.getTitle() : target.getTitle())"))
+    @Mapping(target = "description", expression = ("java(source.getDescription() != null && !source.getDescription().isEmpty()  ? source.getDescription() : target.getDescription())"))
     public abstract Task update(Task source, @MappingTarget Task target);
 }
