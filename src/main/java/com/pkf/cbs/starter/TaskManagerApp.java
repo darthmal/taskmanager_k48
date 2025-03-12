@@ -13,10 +13,10 @@ import java.util.TimeZone;
 @EnableFeignClients
 @SpringBootApplication
 @EnableScheduling
-public class TillServiceApplication {
+public class TaskManagerApp {
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC));
         log.info("Default time zone is UTC");
-        SpringApplication.run(TillServiceApplication.class, args);
+        SpringApplication.run(TaskManagerApp.class, args);
     }
 }
